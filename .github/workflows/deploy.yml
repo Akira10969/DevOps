@@ -75,4 +75,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./hello-vue/dist/
-          server-dir: ${{ secrets.FTP_DIRECTORY }}
+          server-dir: ${{ secrets.FTP_DIRECTORY }}/
