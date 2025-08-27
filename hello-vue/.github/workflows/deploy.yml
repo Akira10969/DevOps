@@ -1,3 +1,4 @@
+# Trigger workflow update
 name: Deploy Vue App to GitHub Pages
 
 on:
