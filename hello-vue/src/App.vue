@@ -13,7 +13,15 @@
         </p>
         <div class="buttons">
           <button class="btn btn-primary" @click="showMessage">Get Started</button>
-          <button class="btn btn-secondary" @click="changeTheme">Toggle Theme</button>
+          <button class="btn btn-secondary" @click="changeTheme">
+            Toggle Theme
+            <span v-if="isDark" class="theme-indicator">🌙</span>
+            <span v-else class="theme-indicator">☀️</span>
+          </button>
+        </div>
+        <div class="counter-section">
+          <button class="btn btn-primary" @click="count++">Click Me!</button>
+          <span class="counter-label">You clicked {{ count }} times.</span>
         </div>
         <div v-if="message" class="message">
           {{ message }}
@@ -45,6 +53,7 @@ import { ref } from 'vue'
 
 const message = ref('')
 const isDark = ref(false)
+const count = ref(0)
 
 const showMessage = () => {
   message.value = message.value ? '' : 'Congratulations! Your Vue app is working perfectly!'
@@ -57,11 +66,18 @@ const changeTheme = () => {
 </script>
 
 <style scoped>
+/* Minimalist Black & White Theme with Dark Mode */
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #fff;
+  color: #111;
   padding: 2rem;
   font-family: 'Arial', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+.dark-theme .app {
+  background: #111;
+  color: #fff;
 }
 
 .container {
@@ -72,26 +88,33 @@ const changeTheme = () => {
 .hero {
   text-align: center;
   padding: 4rem 0;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: #f7f7f7;
   border-radius: 20px;
   margin-bottom: 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: background 0.3s;
+}
+.dark-theme .hero {
+  background: #181818;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.04);
 }
 
 .title {
   font-size: 3.5rem;
-  color: white;
+  color: inherit;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
   animation: fadeInUp 1s ease-out;
 }
 
 .subtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #888;
   margin-bottom: 2rem;
   animation: fadeInUp 1s ease-out 0.2s both;
+}
+.dark-theme .subtitle {
+  color: #bbb;
 }
 
 .buttons {
@@ -110,37 +133,53 @@ const changeTheme = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
+  background: #111;
+  color: #fff;
+}
+.btn:hover {
+  background: #fff;
+  color: #111;
+  border: 1px solid #111;
+}
+.dark-theme .btn {
+  background: #fff;
+  color: #111;
+}
+.dark-theme .btn:hover {
+  background: #111;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
-.btn-primary {
-  background: linear-gradient(45deg, #42b983, #35495e);
-  color: white;
+.counter-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(66, 185, 131, 0.4);
+.counter-label {
+  color: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+.theme-indicator {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .message {
-  background: rgba(255, 255, 255, 0.2);
+  background: #eee;
   padding: 1rem 2rem;
   border-radius: 10px;
-  color: white;
+  color: #111;
   font-size: 1.1rem;
   margin-top: 1rem;
   animation: slideIn 0.5s ease-out;
+}
+.dark-theme .message {
+  background: #222;
+  color: #fff;
 }
 
 .features {
@@ -148,35 +187,48 @@ const changeTheme = () => {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
-
 .feature-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: #fff;
+  border: 1px solid #eee;
   padding: 2rem;
   border-radius: 15px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
   animation: fadeInUp 1s ease-out 0.6s both;
+  cursor: pointer;
 }
-
 .feature-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  background: #f7f7f7;
 }
-
+.dark-theme .feature-card {
+  background: #181818;
+  border: 1px solid #333;
+}
+.dark-theme .feature-card:hover {
+  background: #222;
+  box-shadow: 0 8px 32px rgba(255,255,255,0.08);
+}
 .icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: #111;
 }
-
+.dark-theme .icon {
+  color: #fff;
+}
 .feature-card h3 {
-  color: white;
+  color: inherit;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
-
 .feature-card p {
-  color: rgba(255, 255, 255, 0.8);
+  color: #888;
   line-height: 1.6;
+}
+.dark-theme .feature-card p {
+  color: #bbb;
 }
 
 @keyframes fadeInUp {
@@ -189,7 +241,6 @@ const changeTheme = () => {
     transform: translateY(0);
   }
 }
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -200,17 +251,14 @@ const changeTheme = () => {
     transform: scale(1);
   }
 }
-
 @media (max-width: 768px) {
   .title {
     font-size: 2.5rem;
   }
-  
   .buttons {
     flex-direction: column;
     align-items: center;
   }
-  
   .features {
     grid-template-columns: 1fr;
   }
