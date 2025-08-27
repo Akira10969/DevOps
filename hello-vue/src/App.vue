@@ -108,7 +108,7 @@ const changeTheme = () => {
 }
 
 .subtitle {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #888;
   margin-bottom: 2rem;
   animation: fadeInUp 1s ease-out 0.2s both;
