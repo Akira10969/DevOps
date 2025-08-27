@@ -51,7 +51,7 @@ jobs:
       #   working-directory: ./hello-vue
 
   production:
-    name: Production - Deploy to GitHub Pages
+    name: Production - Deploy to FTP
     needs: staging
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -68,8 +68,11 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ./hello-vue
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy to FTP Server
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./hello-vue/dist
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./hello-vue/dist
+          server-dir: ${{ secrets.FTP_DIRECTORY }}
