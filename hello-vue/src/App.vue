@@ -8,6 +8,9 @@
         <p class="subtitle">
           Welcome to your awesome Vue.js application
         </p>
+        <p class="custom-text">
+          This is a custom message added for demonstration purposes. You can edit or remove this text as you like!
+        </p>
         <div class="buttons">
           <button class="btn btn-primary" @click="showMessage">Get Started</button>
           <button class="btn btn-secondary" @click="changeTheme">Toggle Theme</button>
